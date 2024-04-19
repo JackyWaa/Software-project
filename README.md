@@ -15,7 +15,8 @@ By developing this Five-in-a-Row game, we aim to provide an enjoyable and challe
 
 ## Graphical Abstract
 
-<img decoding="async" src="1.jfif" width="500" />
+<img decoding="async" src="gameover.png" width="500" />
+<img decoding="async" src="game.gif" width="500" />
 
 ## How to operate?
 1. **Start the game:** Launch the electronic Gomoku project on your device.
