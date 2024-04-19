@@ -186,18 +186,31 @@ void draw_piece(int m, int n) {
 ```cpp
 MOUSEMSG m;
 while (1) {
-		m = GetMouseMsg();
-		if (m.uMsg == WM_LBUTTONDOWN) {
-			draw_piece(m.x,m.y);
+	m = GetMouseMsg();
+	if (m.uMsg == WM_LBUTTONDOWN) {
+		draw_piece(m.x,m.y);
+	}
+	while (check_over() == 1) {
+		display_winner(num);
+		displayButton();
+		std::cin >> input;
+		if (input == 'R' || input == 'r') {
+			restart_game();
+			cleardevice(); 
+			putbackground(); 
+			draw_line();
+			draw_point();
 		}
-		if (check_over() == 1) {
-			outtextxy(160,220,_T("Times New Roman"));
-			system("pause");
-			return 0;
+		else {
+			std::cout << "Invalid input. Please enter 'R' to restart." << std::endl;
 		}
 	}
-	return 0;
+}
+closegraph();
+return 0;
 ```
+
+
 * Piece validation: The software checks if a selected position is valid for placing a piece.
 ```cpp
 int piece[15][15];
@@ -247,6 +260,7 @@ int check_five_piece(int x, int y) {
 		return 1;
 	return 0;
 }
+
 int check_over() {
 	for(int i=0; i < 15; i++)
 		for (int j = 0; j < 15; j++) {
@@ -256,23 +270,46 @@ int check_over() {
 				return 1;
 		}
 	return 0;
-}
+```
+* Restart game: If the game is over, the algorithm will prompt the user to restart by pressing 'R+Enter'. If the user inputs 'R+Enter', the game will reset and the board will be cleared.
+  ```cpp
+  void restart_game() {
+	std::cout << "Restart game" << std::endl;
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 15; j++)
+			piece[i][j] = 0;
+	}
+	num = 1;
+
+  void displayButton() {
+	std::cout << "Press 'R' to restart the game" << std::endl;
 ```
 * Input handling: Mouse clicks are captured and used to determine the position where a piece should be placed.
 ```cpp
 MOUSEMSG m;
-	while (1) {
-		m = GetMouseMsg();
-		if (m.uMsg == WM_LBUTTONDOWN) {
-			draw_piece(m.x,m.y);
+while (1) {
+	m = GetMouseMsg();
+	if (m.uMsg == WM_LBUTTONDOWN) {
+		draw_piece(m.x,m.y);
+	}
+	while (check_over() == 1) {
+		display_winner(num);
+		displayButton();
+		std::cin >> input;
+		if (input == 'R' || input == 'r') {
+			restart_game();
+			cleardevice(); 
+			putbackground(); 
+			draw_line();
+			draw_point();
 		}
-		if (check_over() == 1) {
-			outtextxy(160,220,_T("Times New Roman"));
-			system("pause");
-			return 0;
+		else {
+			std::cout << "Invalid input. Please enter 'R' to restart." << std::endl;
 		}
 	}
-	return 0;
+}
+closegraph();
+return 0;
 ```
 ### Future Plan
 * Regret: allows the player to regret the move and undo the previous action.
