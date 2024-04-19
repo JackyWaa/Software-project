@@ -70,7 +70,7 @@ If the board is full and there are no five pieces connected, the game is a draw.
 
 7.**Restart:**
 
-Implement a feature where players can press Shift + R to restart the game when it is not over.
+Implement a feature where players can press "R+Enter" to restart the game when it is not over.
 
 ### Members
 loong - p2211697
@@ -271,8 +271,23 @@ int check_over() {
 		}
 	return 0;
 ```
+* Display winner: When the game is over, the algorithm will display the winner or indicate a draw, along with instructions to restart the game.
+ ```cpp
+void display_winner(int num) {
+	if (num == -1) {
+		outtextxy(160, 100, _T("Black Win! "));
+		outtextxy(30, 130, _T("Press 'R' to restart the game"));
+	}
+	else if (num == 1) {
+			outtextxy(160, 100, _T("White Win! "));
+			outtextxy(30, 130, _T("Press 'R' to restart the game"));
+	}
+	else {
+		outtextxy(160, 100, _T("N0 Winner! "));
+		outtextxy(30, 130, _T("Press 'R' to restart the game"));
+```
 * Restart game: If the game is over, the algorithm will prompt the user to restart by pressing 'R+Enter'. If the user inputs 'R+Enter', the game will reset and the board will be cleared.
-  ```cpp
+ ```cpp
   void restart_game() {
 	std::cout << "Restart game" << std::endl;
 	for (int i = 0; i < 15; i++) {
@@ -285,7 +300,7 @@ int check_over() {
 	std::cout << "Press 'R' to restart the game" << std::endl;
 ```
 * Input handling: Mouse clicks are captured and used to determine the position where a piece should be placed.
-```cpp
+ ```cpp
 MOUSEMSG m;
 while (1) {
 	m = GetMouseMsg();
